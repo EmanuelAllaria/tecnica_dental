@@ -77,21 +77,75 @@ npm run docker:down    # Detener y remover contenedores
 docker compose --profile tools run --rm seed
 ```
 
-### Deploy en servidor (VPS)
+### Deploy en servidor (VPS) — coffeemap
 
-1. Cloná el repo y configurá `.env` con el dominio real en `NEXT_PUBLIC_APP_URL`.
-2. `docker compose build && docker compose up -d`
-3. En nginx (ej. `coffeemap_reverse_proxy`), agregá un `proxy_pass` al puerto interno:
+#### 1. DNS (obligatorio)
+
+El error `DNS_PROBE_POSSIBLE` significa que el dominio **no existe en DNS**. Creá un registro en tu proveedor (Cloudflare, etc.):
+
+| Tipo | Nombre | Valor |
+|------|--------|-------|
+| A | `tecnica-dental` | IP de tu VPS |
+
+**Importante:** usá **guión** (`tecnica-dental.coffeemap.app`), no underscore (`tecnica_dental`). Los subdominios con `_` no son válidos en DNS estándar y muchos proveedores no los resuelven.
+
+Verificá:
+
+```bash
+dig +short tecnica-dental.coffeemap.app
+# Debe devolver la IP del VPS
+```
+
+#### 2. Variables en `.env`
+
+```env
+NEXT_PUBLIC_APP_URL="https://tecnica-dental.coffeemap.app"
+APP_PORT=3010
+DOCKER_NETWORK=coffeemap_default
+```
+
+Confirmá el nombre de la red:
+
+```bash
+docker inspect coffeemap_reverse_proxy --format '{{range $k, $v := .NetworkSettings.Networks}}{{$k}} {{end}}'
+```
+
+#### 3. Build y levantar
+
+```bash
+docker compose build
+docker compose up -d
+```
+
+El contenedor se une a la red `coffeemap_default` para que nginx lo alcance por nombre (`tecnica_dental_app`).
+
+#### 4. Nginx reverse proxy
+
+Corregí tu config actual: apuntaba al puerto **3100**, pero el contenedor escucha en **3000** internamente.
 
 ```nginx
-location / {
-    proxy_pass http://127.0.0.1:3010;
-    proxy_http_version 1.1;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-}
+set $upstream_endpoint http://tecnica_dental_app:3000;
+```
+
+Plantilla completa: [`deploy/nginx-tecnica-dental.conf.example`](deploy/nginx-tecnica-dental.conf.example)
+
+Después de editar la config:
+
+```bash
+docker restart coffeemap_reverse_proxy
+```
+
+#### 5. Verificación
+
+```bash
+# Desde el VPS — app directa
+curl http://127.0.0.1:3010/api/health
+
+# Desde la red Docker — como lo ve nginx
+docker exec coffeemap_reverse_proxy wget -qO- http://tecnica_dental_app:3000/api/health
+
+# DNS
+dig +short tecnica-dental.coffeemap.app
 ```
 
 Para usar otro puerto host, definí `APP_PORT` en `.env` (ej. `APP_PORT=3011`).

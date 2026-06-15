@@ -1,5 +1,6 @@
 services:
   app:
+    container_name: tecnica_dental_app
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,6 +13,9 @@ services:
     env_file:
       - .env
     restart: unless-stopped
+    networks:
+      - default
+      - coffeemap
     healthcheck:
       test:
         [
@@ -35,3 +39,8 @@ services:
       - .env
     profiles:
       - tools
+
+networks:
+  coffeemap:
+    external: true
+    name: ${DOCKER_NETWORK:-coffeemap_default}
