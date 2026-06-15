@@ -17,10 +17,7 @@ export interface ListaPreciosPDFProps {
 }
 
 export function ListaPreciosPDF({ items, fechaGeneracion }: ListaPreciosPDFProps) {
-  const promedio =
-    items.length > 0
-      ? items.reduce((s, i) => s + i.precio, 0) / items.length
-      : 0;
+  const itemsConPrecio = items.filter((item) => item.precio > 0);
 
   return (
     <Document>
@@ -35,7 +32,7 @@ export function ListaPreciosPDF({ items, fechaGeneracion }: ListaPreciosPDFProps
             <Text style={[baseStyles.headerText, styles.colPrecio]}>Precio</Text>
           </View>
 
-          {items.map((item, i) => (
+          {itemsConPrecio.map((item, i) => (
             <View
               key={i}
               style={[
@@ -52,17 +49,6 @@ export function ListaPreciosPDF({ items, fechaGeneracion }: ListaPreciosPDFProps
             </View>
           ))}
         </View>
-
-        {items.length > 0 && (
-          <View style={baseStyles.totalBox}>
-            <View style={baseStyles.totalRow}>
-              <Text style={baseStyles.totalLabel}>Promedio de precios</Text>
-              <Text style={baseStyles.totalValueAccent}>
-                {formatCurrency(promedio)}
-              </Text>
-            </View>
-          </View>
-        )}
 
         <PDFFooter fechaGeneracion={fechaGeneracion} />
       </Page>
