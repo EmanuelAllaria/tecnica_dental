@@ -1,0 +1,85 @@
+############################################################
+# Production-ready .dockerignore for Next.js app
+############################################################
+
+# Dependencies (installed inside Docker)
+node_modules/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Next.js build outputs
+.next/
+out/
+dist/
+build/
+.vercel/
+
+# Tests
+coverage/
+__tests__/
+__mocks__/
+*.test.*
+*.spec.*
+
+# Local development and editor files
+.git/
+.gitignore
+.gitattributes
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.log
+
+# Environment variables
+.env
+.env*.local
+.env.development
+.env.test
+.env.production.local
+
+# Docker configuration files
+Dockerfile*
+.dockerignore
+compose.yaml
+compose.yml
+docker-compose*.yaml
+docker-compose*.yml
+
+# Documentation
+*.md
+docs/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Cache and temporary data
+.cache/
+.eslintcache
+.swc/
+.turbo/
+.tmp/
+.temp/
+
+# TypeScript build metadata
+*.tsbuildinfo
+
+# Sensitive or unnecessary configuration
+*.pem
+.eslintrc*
+eslint.config.*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Cursor / AI metadata
+.cursor/
+AGENTS.md
+CLAUDE.md
