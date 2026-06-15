@@ -101,42 +101,35 @@ dig +short tecnica-dental.coffeemap.app
 ```env
 NEXT_PUBLIC_APP_URL="https://tecnica-dental.coffeemap.app"
 APP_PORT=3010
+DOCKER_NETWORK=reverse_proxy_default
 ```
 
-#### 3. Build y levantar
+Descubrí el nombre real de la red de `coffeemap_reverse_proxy`:
 
 ```bash
-docker compose build
-docker compose up -d
+docker inspect coffeemap_reverse_proxy --format '{{range $k, $v := .NetworkSettings.Networks}}{{$k}} {{end}}'
 ```
+
+Poné ese valor en `DOCKER_NETWORK` (ej. `reverse_proxy_default`, `infra_default`, etc.).
+
+#### 3. Build y levantar (red compartida)
+
+```bash
+npm run docker:up:prod
+# equivale a: docker compose -f docker-compose.yml -f docker-compose.coffeemap.yml up -d --build
+```
+
+Esto une `tecnica_dental_app` a la misma red Docker que nginx.
 
 #### 4. Nginx reverse proxy
 
-`coffeemap_reverse_proxy` corre en otro contenedor. Por defecto la app publica el puerto **3010** en el host y nginx debe apuntar al gateway Docker del host:
-
 ```nginx
-set $upstream_endpoint http://172.17.0.1:3010;
+set $upstream_endpoint http://tecnica_dental_app:3000;
 ```
 
-Si `172.17.0.1` no funciona, verificá la IP de `docker0`:
+**Puerto 3000** = interno del contenedor. **No uses 3010** (ese es solo el mapeo en el host).
 
-```bash
-ip -4 addr show docker0 | grep inet
-```
-
-**Alternativa (red compartida):** si querés usar `http://tecnica_dental_app:3000`:
-
-```bash
-# Descubrí el nombre real de la red
-docker inspect coffeemap_reverse_proxy --format '{{range $k, $v := .NetworkSettings.Networks}}{{$k}} {{end}}'
-
-# En .env: DOCKER_NETWORK=nombre_real
-docker compose -f docker-compose.yml -f docker-compose.coffeemap.yml up -d
-```
-
-Plantilla completa: [`deploy/nginx-tecnica-dental.conf.example`](deploy/nginx-tecnica-dental.conf.example)
-
-Después de editar la config:
+Plantilla: [`deploy/nginx-tecnica-dental.conf.example`](deploy/nginx-tecnica-dental.conf.example)
 
 ```bash
 docker restart coffeemap_reverse_proxy
@@ -145,11 +138,8 @@ docker restart coffeemap_reverse_proxy
 #### 5. Verificación
 
 ```bash
-# App en el host
-curl http://127.0.0.1:3010/api/health
-
-# Como lo ve nginx (desde su contenedor)
-docker exec coffeemap_reverse_proxy wget -qO- http://172.17.0.1:3010/api/health
+# Desde nginx — debe responder ok
+docker exec coffeemap_reverse_proxy wget -qO- http://tecnica_dental_app:3000/api/health
 
 # DNS
 dig +short tecnica-dental.coffeemap.app
@@ -168,6 +158,7 @@ Para usar otro puerto host, definí `APP_PORT` en `.env` (ej. `APP_PORT=3011`).
 | `npm run start` | Servidor de producción (sin Docker) |
 | `npm run db:seed` | Cargar datos de ejemplo |
 | `npm run docker:build` | Construir imagen Docker |
-| `npm run docker:up` | Levantar contenedor |
+| `npm run docker:up` | Levantar contenedor (local) |
+| `npm run docker:up:prod` | Levantar en VPS con red coffeemap |
 | `npm run docker:down` | Bajar contenedor |
 | `npm run docker:logs` | Ver logs |

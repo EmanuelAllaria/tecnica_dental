@@ -10,6 +10,7 @@
     "db:seed": "tsx scripts/seed.ts",
     "docker:build": "docker compose build",
     "docker:up": "docker compose up -d",
+    "docker:up:prod": "docker compose -f docker-compose.yml -f docker-compose.coffeemap.yml up -d --build",
     "docker:down": "docker compose down",
     "docker:logs": "docker compose logs -f app"
   },

@@ -1,10 +1,9 @@
-# Override opcional: une la app a la red Docker de coffeemap.
-# Uso:
-#   1. docker inspect coffeemap_reverse_proxy --format '{{range $k,$v := .NetworkSettings.Networks}}{{$k}} {{end}}'
-#   2. echo 'DOCKER_NETWORK=nombre_real' >> .env
-#   3. docker compose -f docker-compose.yml -f docker-compose.coffeemap.yml up -d
+# Override para VPS coffeemap: une la app a la red de coffeemap_reverse_proxy.
+# Nginx usa: http://tecnica_dental_app:3000  (puerto interno del contenedor)
 #
-# Nginx puede usar: http://tecnica_dental_app:3000
+# 1. docker inspect coffeemap_reverse_proxy --format '{{range $k,$v := .NetworkSettings.Networks}}{{$k}} {{end}}'
+# 2. En .env: DOCKER_NETWORK=nombre_real
+# 3. npm run docker:up:prod
 
 services:
   app:
