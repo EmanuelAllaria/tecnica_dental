@@ -101,13 +101,6 @@ dig +short tecnica-dental.coffeemap.app
 ```env
 NEXT_PUBLIC_APP_URL="https://tecnica-dental.coffeemap.app"
 APP_PORT=3010
-DOCKER_NETWORK=coffeemap_default
-```
-
-Confirmá el nombre de la red:
-
-```bash
-docker inspect coffeemap_reverse_proxy --format '{{range $k, $v := .NetworkSettings.Networks}}{{$k}} {{end}}'
 ```
 
 #### 3. Build y levantar
@@ -117,14 +110,28 @@ docker compose build
 docker compose up -d
 ```
 
-El contenedor se une a la red `coffeemap_default` para que nginx lo alcance por nombre (`tecnica_dental_app`).
-
 #### 4. Nginx reverse proxy
 
-Corregí tu config actual: apuntaba al puerto **3100**, pero el contenedor escucha en **3000** internamente.
+`coffeemap_reverse_proxy` corre en otro contenedor. Por defecto la app publica el puerto **3010** en el host y nginx debe apuntar al gateway Docker del host:
 
 ```nginx
-set $upstream_endpoint http://tecnica_dental_app:3000;
+set $upstream_endpoint http://172.17.0.1:3010;
+```
+
+Si `172.17.0.1` no funciona, verificá la IP de `docker0`:
+
+```bash
+ip -4 addr show docker0 | grep inet
+```
+
+**Alternativa (red compartida):** si querés usar `http://tecnica_dental_app:3000`:
+
+```bash
+# Descubrí el nombre real de la red
+docker inspect coffeemap_reverse_proxy --format '{{range $k, $v := .NetworkSettings.Networks}}{{$k}} {{end}}'
+
+# En .env: DOCKER_NETWORK=nombre_real
+docker compose -f docker-compose.yml -f docker-compose.coffeemap.yml up -d
 ```
 
 Plantilla completa: [`deploy/nginx-tecnica-dental.conf.example`](deploy/nginx-tecnica-dental.conf.example)
@@ -138,11 +145,11 @@ docker restart coffeemap_reverse_proxy
 #### 5. Verificación
 
 ```bash
-# Desde el VPS — app directa
+# App en el host
 curl http://127.0.0.1:3010/api/health
 
-# Desde la red Docker — como lo ve nginx
-docker exec coffeemap_reverse_proxy wget -qO- http://tecnica_dental_app:3000/api/health
+# Como lo ve nginx (desde su contenedor)
+docker exec coffeemap_reverse_proxy wget -qO- http://172.17.0.1:3010/api/health
 
 # DNS
 dig +short tecnica-dental.coffeemap.app
