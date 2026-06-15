@@ -43,12 +43,12 @@ export function LoginForm() {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="w-full max-w-md"
     >
-      <div className="text-center mb-10">
+      <div className="mb-8 text-center sm:mb-10">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="font-display text-5xl font-semibold tracking-wide mb-2"
+          className="mb-2 font-display text-4xl font-semibold tracking-wide sm:text-5xl"
         >
           <span className="gold-gradient">Técnica</span>
           <span className="text-ivory"> Dental</span>
@@ -67,7 +67,7 @@ export function LoginForm() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3, duration: 0.5 }}
-        className="glass rounded-3xl p-8 shadow-2xl shadow-black/40"
+        className="glass rounded-3xl p-6 shadow-2xl shadow-black/40 sm:p-8"
       >
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">

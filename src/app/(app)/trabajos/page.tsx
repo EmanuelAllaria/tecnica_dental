@@ -72,15 +72,15 @@ export default function TrabajosPage() {
     <div>
       <Header title="Trabajos" subtitle="Odontólogos y clientes directos">
         <Link href="/trabajos/nuevo">
-          <Button>
+          <Button className="w-full sm:w-auto">
             <Plus className="h-4 w-4" />
             Nuevo trabajo
           </Button>
         </Link>
       </Header>
 
-      <div className="glass rounded-2xl p-4 mb-6 flex flex-wrap gap-3">
-        <div className="relative flex-1 min-w-[200px]">
+      <div className="glass mb-6 flex flex-col gap-3 rounded-2xl p-4 sm:flex-row sm:flex-wrap">
+        <div className="relative min-w-0 flex-1 sm:min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ivory/40" />
           <Input
             placeholder="Buscar por código o nombre..."
@@ -92,7 +92,7 @@ export default function TrabajosPage() {
         <Select
           value={tipoCliente}
           onChange={(e) => setTipoCliente(e.target.value)}
-          className="w-44"
+          className="w-full sm:w-44"
         >
           <option value="">Todos los tipos</option>
           <option value="ODONTOLOGO">Odontólogo</option>
@@ -101,7 +101,7 @@ export default function TrabajosPage() {
         <Select
           value={estado}
           onChange={(e) => setEstado(e.target.value)}
-          className="w-44"
+          className="w-full sm:w-44"
         >
           <option value="">Todos los estados</option>
           <option value="PENDIENTE">Pendiente</option>
@@ -113,7 +113,7 @@ export default function TrabajosPage() {
         <Select
           value={odontologoId}
           onChange={(e) => setOdontologoId(e.target.value)}
-          className="w-48"
+          className="w-full sm:w-48"
         >
           <option value="">Todos los odontólogos</option>
           {odontologos.map((o) => (

@@ -127,6 +127,7 @@ export default function PreciosPage() {
           size="sm"
           onClick={() => descargarPDF("odontologo")}
           disabled={!!downloading}
+          className="w-full sm:w-auto"
         >
           <Download className="h-4 w-4" />
           {downloading === "odontologo" ? "..." : "PDF odontólogos"}
@@ -136,6 +137,7 @@ export default function PreciosPage() {
           size="sm"
           onClick={() => descargarPDF("cliente")}
           disabled={!!downloading}
+          className="w-full sm:w-auto"
         >
           <Download className="h-4 w-4" />
           {downloading === "cliente" ? "..." : "PDF clientes"}
@@ -146,28 +148,27 @@ export default function PreciosPage() {
             setEditingId(null);
             setForm({ nombre: "", precioOdontologo: "", precioCliente: "" });
           }}
+          className="w-full sm:w-auto"
         >
           <Plus className="h-4 w-4" />
           Agregar
         </Button>
       </Header>
 
-      <div className="glass rounded-2xl p-5 mb-6 flex flex-wrap items-center gap-6">
+      <div className="glass mb-6 grid grid-cols-1 gap-4 rounded-2xl p-4 sm:grid-cols-3 sm:gap-6 sm:p-5">
         <div>
           <p className="text-sm text-ivory/50">Tipos activos</p>
           <p className="font-display text-2xl text-ivory">
             {tipos.filter((t) => t.activo).length}
           </p>
         </div>
-        <div className="h-10 w-px bg-ivory/10" />
-        <div>
+        <div className="sm:border-l sm:border-ivory/10 sm:pl-6">
           <p className="text-sm text-ivory/50">Promedio odontólogos</p>
           <p className="font-display text-2xl text-gold">
             {formatCurrency(promedioOdontologo)}
           </p>
         </div>
-        <div className="h-10 w-px bg-ivory/10" />
-        <div>
+        <div className="sm:border-l sm:border-ivory/10 sm:pl-6">
           <p className="text-sm text-ivory/50">Promedio clientes</p>
           <p className="font-display text-2xl text-teal-400">
             {formatCurrency(promedioCliente)}
@@ -188,7 +189,7 @@ export default function PreciosPage() {
                   placeholder="Ej: Corona metal-porcelana"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label>Precio odontólogos</Label>
                   <Input

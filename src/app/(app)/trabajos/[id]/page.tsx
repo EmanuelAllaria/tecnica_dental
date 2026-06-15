@@ -202,7 +202,7 @@ export default function TrabajoDetailPage({
                       <option value="CLIENTE_DIRECTO">Cliente directo</option>
                     </Select>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     {form.tipoCliente === "ODONTOLOGO" && (
                       <div className="space-y-2">
                         <Label>Odontólogo</Label>
@@ -298,7 +298,7 @@ export default function TrabajoDetailPage({
                   <Button onClick={handleSave}>Guardar cambios</Button>
                 </div>
               ) : (
-                <div className="grid grid-cols-2 gap-y-4 gap-x-8 text-sm">
+                <div className="grid grid-cols-1 gap-y-4 gap-x-8 text-sm sm:grid-cols-2">
                   <div>
                     <p className="text-ivory/40">Tipo</p>
                     <p className="text-ivory">
@@ -357,7 +357,7 @@ export default function TrabajoDetailPage({
                     </p>
                   </div>
                   {trabajo.notas && (
-                    <div className="col-span-2">
+                    <div className="sm:col-span-2">
                       <p className="text-ivory/40">Notas</p>
                       <p className="text-ivory/80">{trabajo.notas}</p>
                     </div>
@@ -368,9 +368,9 @@ export default function TrabajoDetailPage({
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
+            <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <CardTitle className="text-lg">Pagos</CardTitle>
-              <Button size="sm" onClick={() => setShowPago(!showPago)}>
+              <Button size="sm" onClick={() => setShowPago(!showPago)} className="w-full sm:w-auto">
                 <DollarSign className="h-4 w-4" />
                 Registrar pago
               </Button>
@@ -378,7 +378,7 @@ export default function TrabajoDetailPage({
             <CardContent>
               {showPago && (
                 <form onSubmit={handlePago} className="mb-6 p-4 rounded-xl bg-ivory/5 space-y-3">
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                     <div className="space-y-1">
                       <Label>Monto</Label>
                       <Input

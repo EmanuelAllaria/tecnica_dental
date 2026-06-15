@@ -13,6 +13,7 @@ import {
   BarChart3,
   Settings,
   LogOut,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
@@ -29,7 +30,12 @@ const navItems = [
   { href: "/configuracion", label: "Configuración", icon: Settings },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  open?: boolean;
+  onClose?: () => void;
+}
+
+export function Sidebar({ open = false, onClose }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -41,33 +47,46 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-ivory/10 bg-charcoal-light/80 backdrop-blur-xl">
-      <div className="flex h-20 items-center px-6 border-b border-ivory/10">
-        <Link href="/dashboard" className="group">
-          <h1 className="font-display text-2xl font-semibold tracking-wide">
+    <aside
+      className={cn(
+        "fixed left-0 top-0 z-50 flex h-screen w-64 max-w-[85vw] flex-col border-r border-ivory/10 bg-charcoal-light/95 backdrop-blur-xl transition-transform duration-300 ease-in-out lg:translate-x-0",
+        open ? "translate-x-0" : "-translate-x-full"
+      )}
+    >
+      <div className="flex h-14 items-center justify-between border-b border-ivory/10 px-4 lg:h-20 lg:px-6">
+        <Link href="/dashboard" className="group min-w-0" onClick={onClose}>
+          <h1 className="truncate font-display text-xl font-semibold tracking-wide lg:text-2xl">
             <span className="gold-gradient">Técnica</span>
             <span className="text-ivory"> Dental</span>
           </h1>
-          <p className="text-[10px] uppercase tracking-[0.2em] text-ivory/40 mt-0.5">
+          <p className="mt-0.5 text-[10px] uppercase tracking-[0.2em] text-ivory/40">
             Laboratorio
           </p>
         </Link>
+        <button
+          type="button"
+          onClick={onClose}
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-ivory/50 transition-colors hover:bg-ivory/10 hover:text-ivory lg:hidden"
+          aria-label="Cerrar menú"
+        >
+          <X className="h-5 w-5" />
+        </button>
       </div>
 
-      <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
         {navItems.map((item) => {
           const isActive =
             pathname === item.href || pathname.startsWith(item.href + "/");
           const Icon = item.icon;
           return (
-            <Link key={item.href} href={item.href}>
+            <Link key={item.href} href={item.href} onClick={onClose}>
               <motion.div
                 whileHover={{ x: 4 }}
                 className={cn(
-                  "flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm transition-all duration-200",
+                  "flex items-center gap-3 rounded-xl px-4 py-3 text-sm transition-all duration-200 lg:py-2.5",
                   isActive
-                    ? "bg-gold/15 text-gold border border-gold/20"
-                    : "text-ivory/60 hover:text-ivory hover:bg-ivory/5"
+                    ? "border border-gold/20 bg-gold/15 text-gold"
+                    : "text-ivory/60 hover:bg-ivory/5 hover:text-ivory"
                 )}
               >
                 <Icon className="h-4 w-4 shrink-0" />
@@ -81,7 +100,7 @@ export function Sidebar() {
       <div className="border-t border-ivory/10 p-4">
         <button
           onClick={handleLogout}
-          className="flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-ivory/50 hover:text-rose-300 hover:bg-rose-500/10 transition-all cursor-pointer"
+          className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm text-ivory/50 transition-all hover:bg-rose-500/10 hover:text-rose-300 lg:py-2.5"
         >
           <LogOut className="h-4 w-4" />
           <span>Cerrar sesión</span>

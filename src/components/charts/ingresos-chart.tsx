@@ -17,18 +17,18 @@ interface IngresosChartProps {
 
 export function IngresosChart({ data }: IngresosChartProps) {
   return (
-    <ResponsiveContainer width="100%" height={280}>
+    <ResponsiveContainer width="100%" height={240} className="min-h-[200px] sm:!h-[280px]">
       <BarChart data={data}>
         <CartesianGrid strokeDasharray="3 3" stroke="rgba(245,240,232,0.05)" />
         <XAxis
           dataKey="mes"
           stroke="rgba(245,240,232,0.4)"
-          fontSize={12}
+          fontSize={11}
           tickLine={false}
         />
         <YAxis
           stroke="rgba(245,240,232,0.4)"
-          fontSize={12}
+          fontSize={11}
           tickLine={false}
           tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`}
         />

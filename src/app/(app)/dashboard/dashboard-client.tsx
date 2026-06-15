@@ -104,18 +104,19 @@ export function DashboardClient({
         className="mb-8"
       >
         <Card className="border-gold/20 bg-gradient-to-br from-gold/5 to-transparent">
-          <CardHeader className="flex flex-row items-center justify-between">
+          <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
               <div className="rounded-xl bg-gold/15 p-2">
                 <Sparkles className="h-5 w-5 text-gold" />
               </div>
-              <CardTitle className="text-xl">Resumen inteligente</CardTitle>
+              <CardTitle className="text-lg sm:text-xl">Resumen inteligente</CardTitle>
             </div>
             <Button
               variant="outline"
               size="sm"
               onClick={generarResumen}
               disabled={loadingIA}
+              className="w-full sm:w-auto"
             >
               {loadingIA ? "Generando..." : "Generar con IA"}
             </Button>

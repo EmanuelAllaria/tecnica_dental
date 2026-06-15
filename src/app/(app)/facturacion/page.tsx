@@ -109,7 +109,7 @@ export default function FacturacionPage() {
         <Select
           value={String(month)}
           onChange={(e) => setMonth(parseInt(e.target.value))}
-          className="w-36"
+          className="w-full sm:w-36"
         >
           {MESES.map((m, i) => (
             <option key={m} value={i + 1}>
@@ -120,7 +120,7 @@ export default function FacturacionPage() {
         <Select
           value={String(year)}
           onChange={(e) => setYear(parseInt(e.target.value))}
-          className="w-28"
+          className="w-full sm:w-28"
         >
           {[2024, 2025, 2026, 2027].map((y) => (
             <option key={y} value={y}>
@@ -161,7 +161,7 @@ export default function FacturacionPage() {
           </div>
 
           <Card className="mb-8 border-gold/20">
-            <CardHeader className="flex flex-row items-center justify-between">
+            <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-3">
                 <Sparkles className="h-5 w-5 text-gold" />
                 <CardTitle className="text-lg">Resumen ejecutivo con IA</CardTitle>
@@ -171,6 +171,7 @@ export default function FacturacionPage() {
                 size="sm"
                 onClick={generarResumen}
                 disabled={loadingIA}
+                className="w-full sm:w-auto"
               >
                 {loadingIA ? "Generando..." : "Generar resumen"}
               </Button>

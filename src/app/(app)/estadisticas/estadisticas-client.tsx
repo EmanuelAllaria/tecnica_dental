@@ -86,7 +86,7 @@ export function EstadisticasClient({
       />
 
       <Card className="mb-8 border-gold/20 bg-gradient-to-br from-gold/5 to-transparent">
-        <CardHeader className="flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <Sparkles className="h-5 w-5 text-gold" />
             <CardTitle className="text-lg">Análisis inteligente con IA</CardTitle>
@@ -96,6 +96,7 @@ export function EstadisticasClient({
             size="sm"
             onClick={generarAnalisis}
             disabled={loadingIA}
+            className="w-full sm:w-auto"
           >
             {loadingIA ? "Analizando..." : "Generar análisis"}
           </Button>
@@ -189,7 +190,7 @@ export function EstadisticasClient({
                 key={h.id}
                 className="p-4 rounded-xl bg-ivory/5 border border-ivory/10"
               >
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex flex-wrap items-center gap-2 mb-2">
                   <span className="text-xs text-gold uppercase tracking-wider">
                     {h.tipo}
                   </span>

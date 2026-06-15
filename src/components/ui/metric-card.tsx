@@ -48,12 +48,12 @@ export function MetricCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
-      className="glass rounded-2xl p-6 group hover:border-gold/20 transition-all duration-300"
+      className="glass rounded-2xl p-4 group transition-all duration-300 hover:border-gold/20 sm:p-6"
     >
       <div className="flex items-start justify-between">
         <div>
           <p className="text-sm text-ivory/50 mb-2">{title}</p>
-          <p className="font-display text-3xl font-semibold text-ivory">
+          <p className="font-display text-2xl font-semibold text-ivory sm:text-3xl">
             {displayValue}
           </p>
           {subtitle && (

@@ -57,7 +57,7 @@ export default function ReportesPage() {
             estados de pago, saldos y totales.
           </p>
 
-          <div className="flex gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row">
             <Select
               value={String(month)}
               onChange={(e) => setMonth(parseInt(e.target.value))}
@@ -82,8 +82,8 @@ export default function ReportesPage() {
             </Select>
           </div>
 
-          <div className="flex gap-3">
-            <Button onClick={() => generarPDF(true)} disabled={loading}>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button onClick={() => generarPDF(true)} disabled={loading} className="w-full sm:w-auto">
               <Download className="h-4 w-4" />
               {loading ? "Generando..." : "Descargar PDF"}
             </Button>
@@ -91,6 +91,7 @@ export default function ReportesPage() {
               variant="outline"
               onClick={() => generarPDF(false)}
               disabled={loading}
+              className="w-full sm:w-auto"
             >
               <Eye className="h-4 w-4" />
               Vista previa
@@ -107,7 +108,7 @@ export default function ReportesPage() {
           <CardContent>
             <iframe
               src={previewUrl}
-              className="w-full h-[800px] rounded-xl border border-ivory/10"
+              className="h-[50vh] min-h-[320px] w-full rounded-xl border border-ivory/10 sm:h-[600px] lg:h-[800px]"
               title="Vista previa PDF"
             />
           </CardContent>

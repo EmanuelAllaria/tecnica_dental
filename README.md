@@ -110,13 +110,14 @@ Descubrí el nombre real de la red de `coffeemap_reverse_proxy`:
 docker inspect coffeemap_reverse_proxy --format '{{range $k, $v := .NetworkSettings.Networks}}{{$k}} {{end}}'
 ```
 
-Poné ese valor en `DOCKER_NETWORK` (ej. `reverse_proxy_default`, `infra_default`, etc.).
+Poné ese valor en `DOCKER_NETWORK` (en coffeemap suele ser `coffee_map`).
 
 #### 3. Build y levantar (red compartida)
 
+En el VPS **no hace falta npm**. Usá docker compose directo:
+
 ```bash
-npm run docker:up:prod
-# equivale a: docker compose -f docker-compose.yml -f docker-compose.coffeemap.yml up -d --build
+docker compose -f docker-compose.yml -f docker-compose.coffeemap.yml up -d --build
 ```
 
 Esto une `tecnica_dental_app` a la misma red Docker que nginx.

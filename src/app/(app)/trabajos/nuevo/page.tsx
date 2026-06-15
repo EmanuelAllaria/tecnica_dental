@@ -228,14 +228,15 @@ export default function NuevoTrabajoPage() {
                 placeholder="Observaciones del caso..."
               />
             </div>
-            <div className="flex gap-3 pt-2">
-              <Button type="submit" disabled={loading}>
+            <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+              <Button type="submit" disabled={loading} className="w-full sm:w-auto">
                 {loading ? "Guardando..." : "Crear trabajo"}
               </Button>
               <Button
                 type="button"
                 variant="ghost"
                 onClick={() => router.back()}
+                className="w-full sm:w-auto"
               >
                 Cancelar
               </Button>

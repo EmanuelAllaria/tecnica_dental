@@ -17,21 +17,21 @@ interface TopOdontologosChartProps {
 
 export function TopOdontologosChart({ data }: TopOdontologosChartProps) {
   return (
-    <ResponsiveContainer width="100%" height={Math.max(200, data.length * 50)}>
-      <BarChart data={data} layout="vertical">
+    <ResponsiveContainer width="100%" height={Math.max(180, data.length * 44)}>
+      <BarChart data={data} layout="vertical" margin={{ left: 0, right: 8 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="rgba(245,240,232,0.05)" />
         <XAxis
           type="number"
           stroke="rgba(245,240,232,0.4)"
-          fontSize={12}
+          fontSize={11}
           tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`}
         />
         <YAxis
           type="category"
           dataKey="nombre"
           stroke="rgba(245,240,232,0.4)"
-          fontSize={12}
-          width={120}
+          fontSize={11}
+          width={90}
           tickLine={false}
         />
         <Tooltip
