@@ -138,25 +138,25 @@ export function EstadisticasClient({
             {distribucionTipos.length > 0 ? (
               <ResponsiveContainer width="100%" height={280}>
                 <BarChart data={distribucionTipos}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(245,240,232,0.05)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(148, 163, 184, 0.3)" />
                   <XAxis
                     dataKey="nombre"
-                    stroke="rgba(245,240,232,0.4)"
+                    stroke="rgba(148, 163, 184, 0.6)"
                     fontSize={10}
                     angle={-20}
                     textAnchor="end"
                     height={60}
                   />
-                  <YAxis stroke="rgba(245,240,232,0.4)" fontSize={12} />
+                  <YAxis stroke="rgba(148, 163, 184, 0.6)" fontSize={12} />
                   <Tooltip
                     contentStyle={{
-                      background: "#1a1a22",
-                      border: "1px solid rgba(201,168,124,0.2)",
+                      background: "#ffffff",
+                      border: "1px solid #e2e8f0",
                       borderRadius: "12px",
-                      color: "#f5f0e8",
+                      color: "#1e293b",
                     }}
                   />
-                  <Bar dataKey="cantidad" fill="#1a4a42" radius={[6, 6, 0, 0]} />
+                  <Bar dataKey="cantidad" fill="#0d9488" radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             ) : (

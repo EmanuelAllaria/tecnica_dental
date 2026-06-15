@@ -22,7 +22,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-charcoal">
-      <header className="fixed inset-x-0 top-0 z-30 flex h-14 items-center gap-3 border-b border-ivory/10 bg-charcoal/95 px-4 pt-[env(safe-area-inset-top)] backdrop-blur-xl lg:hidden">
+      <header className="fixed inset-x-0 top-0 z-30 flex h-14 items-center gap-3 border-b border-ivory/10 bg-charcoal-light/95 px-4 pt-[env(safe-area-inset-top)] backdrop-blur-xl lg:hidden">
         <button
           type="button"
           onClick={() => setMenuOpen(true)}
@@ -42,7 +42,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {menuOpen && (
         <button
           type="button"
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-40 bg-slate-900/30 backdrop-blur-sm lg:hidden"
           onClick={() => setMenuOpen(false)}
           aria-label="Cerrar menú"
         />

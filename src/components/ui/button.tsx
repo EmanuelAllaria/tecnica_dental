@@ -9,14 +9,14 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-gold text-charcoal hover:bg-gold-light shadow-lg shadow-gold/20",
+          "bg-gold text-white hover:bg-gold-light shadow-lg shadow-gold/20",
         secondary:
           "bg-ivory/10 text-ivory border border-ivory/20 hover:bg-ivory/20",
         outline:
           "border border-gold/40 text-gold hover:bg-gold/10",
         ghost: "text-ivory/70 hover:text-ivory hover:bg-ivory/10",
         destructive:
-          "bg-rose-600/20 text-rose-300 border border-rose-500/30 hover:bg-rose-600/30",
+          "bg-rose-100 text-rose-700 border border-rose-200 hover:bg-rose-200",
       },
       size: {
         default: "h-10 px-5 py-2",

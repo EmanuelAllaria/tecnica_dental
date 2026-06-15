@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-charcoal: #0f0f12;
-  --color-charcoal-light: #1a1a22;
-  --color-ivory: #f5f0e8;
-  --color-gold: #c9a87c;
-  --color-gold-light: #dfc9a8;
-  --color-dental: #1a4a42;
-  --color-dental-light: #2a6a5e;
+  --color-charcoal: #f0f7f5;
+  --color-charcoal-light: #ffffff;
+  --color-ivory: #1e293b;
+  --color-gold: #0d9488;
+  --color-gold-light: #14b8a6;
+  --color-dental: #0369a1;
+  --color-dental-light: #38bdf8;
   --font-display: var(--font-cormorant);
   --font-body: var(--font-dm-sans);
 }
@@ -43,22 +43,23 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(201, 168, 124, 0.3);
+  background: rgba(13, 148, 136, 0.35);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(201, 168, 124, 0.5);
+  background: rgba(13, 148, 136, 0.55);
 }
 
 /* Glass effect utility */
 .glass {
-  background: rgba(26, 26, 34, 0.6);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(245, 240, 232, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
 }
 
 .gold-gradient {
-  background: linear-gradient(135deg, #c9a87c 0%, #dfc9a8 50%, #c9a87c 100%);
+  background: linear-gradient(135deg, #0d9488 0%, #0369a1 50%, #14b8a6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -67,14 +68,14 @@ body {
 /* Animated background for login */
 .login-bg {
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(26, 74, 66, 0.3) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(201, 168, 124, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 60% 80%, rgba(26, 74, 66, 0.2) 0%, transparent 50%),
-    #0f0f12;
+    radial-gradient(ellipse at 20% 50%, rgba(13, 148, 136, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(3, 105, 161, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(20, 184, 166, 0.08) 0%, transparent 50%),
+    #f0f7f5;
 }
 
 /* Table select option styling */
 select option {
-  background: #1a1a22;
-  color: #f5f0e8;
+  background: #ffffff;
+  color: #1e293b;
 }

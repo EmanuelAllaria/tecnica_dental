@@ -100,7 +100,7 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
       <div className="border-t border-ivory/10 p-4">
         <button
           onClick={handleLogout}
-          className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm text-ivory/50 transition-all hover:bg-rose-500/10 hover:text-rose-300 lg:py-2.5"
+          className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm text-ivory/50 transition-all hover:bg-rose-100 hover:text-rose-700 lg:py-2.5"
         >
           <LogOut className="h-4 w-4" />
           <span>Cerrar sesión</span>

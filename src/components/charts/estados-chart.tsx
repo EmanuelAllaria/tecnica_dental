@@ -11,6 +11,13 @@ const COLORS: Record<string, string> = {
   VENCIDO: "#f43f5e",
 };
 
+const TOOLTIP_STYLE = {
+  background: "#ffffff",
+  border: "1px solid #e2e8f0",
+  borderRadius: "12px",
+  color: "#1e293b",
+};
+
 interface EstadosChartProps {
   data: { estado: string; count: number }[];
 }
@@ -45,21 +52,14 @@ export function EstadosChart({ data }: EstadosChartProps) {
           {chartData.map((entry) => (
             <Cell
               key={entry.estado}
-              fill={COLORS[entry.estado] || "#c9a87c"}
+              fill={COLORS[entry.estado] || "#0d9488"}
             />
           ))}
         </Pie>
-        <Tooltip
-          contentStyle={{
-            background: "#1a1a22",
-            border: "1px solid rgba(201,168,124,0.2)",
-            borderRadius: "12px",
-            color: "#f5f0e8",
-          }}
-        />
+        <Tooltip contentStyle={TOOLTIP_STYLE} />
         <Legend
           formatter={(value) => (
-            <span style={{ color: "rgba(245,240,232,0.7)" }}>{value}</span>
+            <span style={{ color: "rgba(30, 41, 59, 0.7)" }}>{value}</span>
           )}
         />
       </PieChart>

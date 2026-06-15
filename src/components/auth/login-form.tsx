@@ -67,7 +67,7 @@ export function LoginForm() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3, duration: 0.5 }}
-        className="glass rounded-3xl p-6 shadow-2xl shadow-black/40 sm:p-8"
+        className="glass rounded-3xl p-6 shadow-2xl shadow-teal-900/10 sm:p-8"
       >
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
@@ -99,7 +99,7 @@ export function LoginForm() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-sm text-rose-400 text-center"
+              className="text-sm text-rose-600 text-center"
             >
               {error}
             </motion.p>

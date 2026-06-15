@@ -43,9 +43,9 @@ export const ESTADO_LABELS: Record<string, string> = {
 };
 
 export const ESTADO_COLORS: Record<string, string> = {
-  PENDIENTE: "bg-amber-500/20 text-amber-300 border-amber-500/30",
-  EN_PROCESO: "bg-blue-500/20 text-blue-300 border-blue-500/30",
-  ENTREGADO: "bg-teal-500/20 text-teal-300 border-teal-500/30",
-  PAGADO: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
-  VENCIDO: "bg-rose-500/20 text-rose-300 border-rose-500/30",
+  PENDIENTE: "bg-amber-100 text-amber-800 border-amber-200",
+  EN_PROCESO: "bg-blue-100 text-blue-800 border-blue-200",
+  ENTREGADO: "bg-teal-100 text-teal-800 border-teal-200",
+  PAGADO: "bg-emerald-100 text-emerald-800 border-emerald-200",
+  VENCIDO: "bg-rose-100 text-rose-800 border-rose-200",
 };
