@@ -72,6 +72,7 @@ export default function NuevoTrabajoPage() {
       ...form,
       tipoCliente,
       odontologoId: tipoCliente === "CLIENTE_DIRECTO" ? "" : form.odontologoId,
+      paciente: tipoCliente === "ODONTOLOGO" ? "" : form.paciente,
       precio: precio != null ? String(precio) : form.precio,
     });
   }
@@ -87,7 +88,8 @@ export default function NuevoTrabajoPage() {
         tipoCliente: form.tipoCliente,
         odontologoId:
           form.tipoCliente === "ODONTOLOGO" ? form.odontologoId : null,
-        paciente: form.paciente,
+        paciente:
+          form.tipoCliente === "CLIENTE_DIRECTO" ? form.paciente : "—",
         tipoTrabajoId: form.tipoTrabajoId,
         precio: parseFloat(form.precio),
         estado: form.estado,
@@ -152,21 +154,19 @@ export default function NuevoTrabajoPage() {
                   </Select>
                 </div>
               )}
-              <div className="space-y-2">
-                <Label>{esClienteDirecto ? "Cliente" : "Paciente"}</Label>
-                <Input
-                  value={form.paciente}
-                  onChange={(e) =>
-                    setForm({ ...form, paciente: e.target.value })
-                  }
-                  required
-                  placeholder={
-                    esClienteDirecto
-                      ? "Nombre del cliente"
-                      : "Nombre del paciente"
-                  }
-                />
-              </div>
+              {esClienteDirecto && (
+                <div className="space-y-2">
+                  <Label>Cliente</Label>
+                  <Input
+                    value={form.paciente}
+                    onChange={(e) =>
+                      setForm({ ...form, paciente: e.target.value })
+                    }
+                    required
+                    placeholder="Nombre del cliente"
+                  />
+                </div>
+              )}
               <div className="space-y-2">
                 <Label>Tipo de trabajo</Label>
                 <Select

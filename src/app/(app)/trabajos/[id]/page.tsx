@@ -110,7 +110,8 @@ export default function TrabajoDetailPage({
         tipoCliente: form.tipoCliente,
         odontologoId:
           form.tipoCliente === "ODONTOLOGO" ? form.odontologoId : null,
-        paciente: form.paciente,
+        paciente:
+          form.tipoCliente === "CLIENTE_DIRECTO" ? form.paciente : "—",
         tipoTrabajoId: form.tipoTrabajoId,
         precio: parseFloat(form.precio),
         estado: form.estado,
@@ -163,7 +164,7 @@ export default function TrabajoDetailPage({
         subtitle={
           trabajo.tipoCliente === "CLIENTE_DIRECTO"
             ? `Cliente: ${trabajo.paciente}`
-            : `Paciente: ${trabajo.paciente}`
+            : `Odontólogo: ${trabajo.odontologo?.nombre ?? "—"}`
         }
       >
         <EstadoBadge estado={trabajo.estado} />
@@ -195,6 +196,10 @@ export default function TrabajoDetailPage({
                             e.target.value === "CLIENTE_DIRECTO"
                               ? ""
                               : form.odontologoId,
+                          paciente:
+                            e.target.value === "ODONTOLOGO"
+                              ? ""
+                              : form.paciente,
                         })
                       }
                     >
@@ -222,19 +227,18 @@ export default function TrabajoDetailPage({
                         </Select>
                       </div>
                     )}
-                    <div className="space-y-2">
-                      <Label>
-                        {form.tipoCliente === "CLIENTE_DIRECTO"
-                          ? "Cliente"
-                          : "Paciente"}
-                      </Label>
-                      <Input
-                        value={form.paciente}
-                        onChange={(e) =>
-                          setForm({ ...form, paciente: e.target.value })
-                        }
-                      />
-                    </div>
+                    {form.tipoCliente === "CLIENTE_DIRECTO" && (
+                      <div className="space-y-2">
+                        <Label>Cliente</Label>
+                        <Input
+                          value={form.paciente}
+                          onChange={(e) =>
+                            setForm({ ...form, paciente: e.target.value })
+                          }
+                          required
+                        />
+                      </div>
+                    )}
                     <div className="space-y-2">
                       <Label>Tipo de trabajo</Label>
                       <Select
@@ -308,18 +312,12 @@ export default function TrabajoDetailPage({
                     </p>
                   </div>
                   {trabajo.tipoCliente === "ODONTOLOGO" ? (
-                    <>
-                      <div>
-                        <p className="text-ivory/40">Odontólogo</p>
-                        <p className="text-ivory">
-                          {trabajo.odontologo?.nombre ?? "—"}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-ivory/40">Paciente</p>
-                        <p className="text-ivory">{trabajo.paciente}</p>
-                      </div>
-                    </>
+                    <div>
+                      <p className="text-ivory/40">Odontólogo</p>
+                      <p className="text-ivory">
+                        {trabajo.odontologo?.nombre ?? "—"}
+                      </p>
+                    </div>
                   ) : (
                     <div>
                       <p className="text-ivory/40">Cliente</p>

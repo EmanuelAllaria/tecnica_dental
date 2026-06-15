@@ -40,7 +40,8 @@ export async function POST(request: NextRequest) {
     codigo,
     tipoCliente: body.tipoCliente || "ODONTOLOGO",
     odontologoId: body.odontologoId || null,
-    paciente: body.paciente,
+    paciente:
+      body.tipoCliente === "CLIENTE_DIRECTO" ? body.paciente : "—",
     tipoTrabajoId: body.tipoTrabajoId,
     precio: body.precio,
     estado: (body.estado as EstadoTrabajo) || "PENDIENTE",

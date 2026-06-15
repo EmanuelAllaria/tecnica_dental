@@ -33,7 +33,8 @@ export async function PUT(
     tipoCliente: body.tipoCliente,
     odontologoId:
       body.tipoCliente === "CLIENTE_DIRECTO" ? null : body.odontologoId,
-    paciente: body.paciente,
+    paciente:
+      body.tipoCliente === "CLIENTE_DIRECTO" ? body.paciente : "—",
     tipoTrabajoId: body.tipoTrabajoId,
     precio: body.precio,
     estado: body.estado as EstadoTrabajo,
